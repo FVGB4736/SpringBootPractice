@@ -5,7 +5,7 @@
 	layout:decorate="~{layout}">
 
 <head>
-<title>Club edit</title>
+<title>Club Edit</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -17,35 +17,33 @@
 
 			<div class="container">
 
-				<form class="row g-3" role="form"  method="post" th:action="@{/clubs/new}" th:object="${club}">
+				<form class="row g-3" role="form" method="post"
+					th:action="@{/clubs/{clubId}/edit(clubId = ${club.id})}"
+					th:object="${club}">
+					<input type="hidden" th:field="*{id}">
 					<div class="col-md-6">
 						<label for="title" class="form-label">Title</label> <input
-							type="text" 
-							class="form-control" 
-							id="title"
-							placeholder="title"
-							name="title"
-							th:field="*{title}">
+							type="text" class="form-control" id="title" placeholder="title"
+							name="title" th:field="*{title}">
+						<p th:if="${#fields.hasErrors('title')}" class="text-danger"
+							th:errors="*{title}"></p>
 					</div>
 					<div class="col-md-6">
 						<label for="photourl" class="form-label">PhotoUrl</label> <input
-							type="text" 
-							class="form-control" 
-							id="photoUrl"
-							name="photoUrl"
+							type="text" class="form-control" id="photoUrl" name="photoUrl"
 							th:field="*{photoUrl}">
+						<p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger"
+							th:errors="*{photoUrl}"></p>
 					</div>
 					<div class="col-12">
 						<label for="content" class="form-label">Content</label> <input
-							type="text" 
-							class="form-control" 
-							id="content"
-							placeholder="content"
-							name="content"
-							th:field="*{content}">
+							type="text" class="form-control" id="content"
+							placeholder="content" name="content" th:field="*{content}">
+						<p th:if="${#fields.hasErrors('content')}" class="text-danger"
+							th:errors="*{content}"></p>
 					</div>
-					
-					
+
+
 					<div class="col-12">
 						<button type="submit" class="btn btn-primary">Create</button>
 					</div>

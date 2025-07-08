@@ -26,6 +26,8 @@
 							placeholder="title"
 							name="title"
 							th:field="*{title}">
+							<p th:if="${#fields.hasErrors('title')}" class="text-danger"
+							th:errors="*{title}"></p>
 					</div>
 					<div class="col-md-6">
 						<label for="photourl" class="form-label">PhotoUrl</label> <input
@@ -34,6 +36,8 @@
 							id="photoUrl"
 							name="photoUrl"
 							th:field="*{photoUrl}">
+							<p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger"
+							th:errors="*{photoUrl}"></p>
 					</div>
 					<div class="col-12">
 						<label for="content" class="form-label">Content</label> <input
@@ -43,6 +47,8 @@
 							placeholder="content"
 							name="content"
 							th:field="*{content}">
+							<p th:if="${#fields.hasErrors('content')}" class="text-danger"
+							th:errors="*{content}"></p>
 					</div>
 					
 					

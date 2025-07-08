@@ -2,7 +2,8 @@ package com.practice.demo.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.validation.constraints.NotEmpty;
+import com.practice.demo.models.Club;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,14 +13,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClubDto {
-	private Long id;
-	@NotEmpty(message = "Club Title should not be Empty")
-	private String title;
-	@NotEmpty(message = "Photo Link should not be Empty")
+public class EventDto {
+	private long id;
+	private String name;
+	private LocalDateTime startTime;
+
+	private LocalDateTime endTime;
+	
+	private String type;
+	
 	private String photoUrl;
-	@NotEmpty(message = "Content should not be Empty")
-	private String content;
+	
 	private LocalDateTime createdOn;
 	private LocalDateTime updatedOn;
+	private Club club;
 }
