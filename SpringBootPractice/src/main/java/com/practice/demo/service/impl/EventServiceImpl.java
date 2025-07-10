@@ -1,5 +1,8 @@
 package com.practice.demo.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.practice.demo.dto.EventDto;
@@ -30,6 +33,23 @@ public class EventServiceImpl implements EventService{
 		event.setClub(club);
 		eventRepository.save(event);
 		
+	}
+
+	@Override
+	public List<EventDto> findAllEvents() {
+		List<Event> events = eventRepository.findAll();
+		
+		List<EventDto> eventDtos = events.stream()
+				.map(event -> EventMapper.mapToEventDto(event))
+				.collect(Collectors.toList());
+		return eventDtos;
+	}
+
+	
+	@Override
+	public EventDto findEventById(Long eventId) {
+		Event event = eventRepository.findById(eventId).get();
+		return EventMapper.mapToEventDto(event);
 	}
 	
 	

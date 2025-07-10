@@ -25,7 +25,7 @@ public class ClubMapper {
 	            .content(club.getContent())
 	            .createdOn(club.getCreatedOn())
 	            .updatedOn(club.getUpdatedOn())
-	            .eventDtos(eventDtos)
+	            .events(eventDtos)
 	            .build();
 		return clubDto;
 	}
@@ -33,7 +33,7 @@ public class ClubMapper {
 	public static Club mapToClub(ClubDto clubDto) {
 		
 		List<Event> events = new ArrayList<Event>();
-		events = clubDto.getEventDtos().stream()
+		events = clubDto.getEvents().stream()
 				.map(eventDto -> EventMapper.mapToEvent(eventDto))
 				.collect(Collectors.toList());
 		
