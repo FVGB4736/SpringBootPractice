@@ -33,9 +33,14 @@ public class ClubMapper {
 	public static Club mapToClub(ClubDto clubDto) {
 		
 		List<Event> events = new ArrayList<Event>();
-		events = clubDto.getEvents().stream()
-				.map(eventDto -> EventMapper.mapToEvent(eventDto))
-				.collect(Collectors.toList());
+		
+		//避免一開始建立CLUB時，是沒有EVENT的，否則會造成NULL的錯誤
+		if (clubDto.getEvents() != null) {
+		    events = clubDto.getEvents().stream()
+		        .map(EventMapper::mapToEvent)
+		        .collect(Collectors.toList());
+		}
+		
 		
 		Club club = Club.builder()
 	            .id(clubDto.getId())

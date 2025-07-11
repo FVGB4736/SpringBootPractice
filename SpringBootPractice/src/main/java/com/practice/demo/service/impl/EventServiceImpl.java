@@ -13,9 +13,13 @@ import com.practice.demo.repository.ClubRepository;
 import com.practice.demo.repository.EventRepository;
 import com.practice.demo.service.EventService;
 
+import jakarta.validation.Valid;
+
 @Service
 public class EventServiceImpl implements EventService{
 	
+	private ClubRepository clubRepository;
+	private EventRepository eventRepository;
 	
 	public EventServiceImpl(ClubRepository clubRepository, EventRepository eventRepository) {
 		super();
@@ -23,8 +27,7 @@ public class EventServiceImpl implements EventService{
 		this.eventRepository = eventRepository;
 	}
 
-	private ClubRepository clubRepository;
-	private EventRepository eventRepository;
+	
 	
 	@Override
 	public void createEvent(Long clubId, EventDto eventDto) {
@@ -50,6 +53,19 @@ public class EventServiceImpl implements EventService{
 	public EventDto findEventById(Long eventId) {
 		Event event = eventRepository.findById(eventId).get();
 		return EventMapper.mapToEventDto(event);
+	}
+
+	@Override
+	public void updateEvent(EventDto eventDto) {
+		Event event = EventMapper.mapToEvent(eventDto);
+		eventRepository.save(event);
+		
+	}
+
+	@Override
+	public void deleteEvent(long eventId) {
+		eventRepository.deleteById(eventId);
+		
 	}
 	
 	

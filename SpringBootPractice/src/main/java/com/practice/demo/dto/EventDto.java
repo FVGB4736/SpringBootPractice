@@ -19,9 +19,9 @@ public class EventDto {
 	private long id;
 	private String name;
 	
-	@DateTimeFormat(pattern="yyyy-mm-dd'T'hh:mm")
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime startTime;
-	@DateTimeFormat(pattern="yyyy-mm-dd'T'hh:mm")
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime endTime;
 	
 	private String type;
