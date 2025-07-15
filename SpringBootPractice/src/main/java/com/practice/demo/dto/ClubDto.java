@@ -3,6 +3,8 @@ package com.practice.demo.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.practice.demo.models.UserEntity;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +25,7 @@ public class ClubDto {
 	private String content;
 	private LocalDateTime createdOn;
 	private LocalDateTime updatedOn;
+	
+	private UserEntity createdBy;
 	private List<EventDto> events;
 }

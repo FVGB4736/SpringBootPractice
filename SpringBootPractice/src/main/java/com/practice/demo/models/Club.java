@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -36,6 +38,10 @@ public class Club {
 	private LocalDateTime createdOn;
 	@UpdateTimestamp
 	private LocalDateTime updatedOn;
+	
+	@ManyToOne
+	@JoinColumn(name="created_by", nullable=false)
+	private UserEntity createdBy;
 	
 	
 	@OneToMany(mappedBy="club", cascade= CascadeType.REMOVE)

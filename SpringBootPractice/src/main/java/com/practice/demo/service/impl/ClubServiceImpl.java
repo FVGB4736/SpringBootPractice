@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.practice.demo.dto.ClubDto;
 import com.practice.demo.mapper.ClubMapper;
 import com.practice.demo.models.Club;
+import com.practice.demo.models.UserEntity;
 import com.practice.demo.repository.ClubRepository;
+import com.practice.demo.repository.UserRepository;
+import com.practice.demo.security.SecurityUtil;
 import com.practice.demo.service.ClubService;
 
 @Service
@@ -17,6 +20,7 @@ public class ClubServiceImpl implements ClubService{
 
 	
 	private ClubRepository clubRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
 	public ClubServiceImpl(ClubRepository clubRepository) {
@@ -34,7 +38,13 @@ public class ClubServiceImpl implements ClubService{
 
 	@Override
 	public Club saveClub(ClubDto clubDto) {
+		String username = SecurityUtil.getSessionUser();
+		UserEntity user = userRepository.findByUsername(username);
+		
+		
 		Club club = ClubMapper.mapToClub(clubDto);
+		club.setCreatedBy(user);
+		
 		return clubRepository.save(club);
 	}
 
@@ -46,7 +56,13 @@ public class ClubServiceImpl implements ClubService{
 
 	@Override
 	public void updateClub(ClubDto clubDto) {
+		
+		String username = SecurityUtil.getSessionUser();
+		UserEntity user = userRepository.findByUsername(username);
+		
 		Club club = ClubMapper.mapToClub(clubDto);
+		club.setCreatedBy(user);
+		
 		clubRepository.save(club);
 		
 	}

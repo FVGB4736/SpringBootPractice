@@ -1,0 +1,77 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<head>
+<title>Register</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+	<main class="flex-shrink-0">
+
+
+		<section layout:fragment="body" class="py-5">
+
+
+			<div class="container">
+			
+				<div th:if="${param.fail}" class="alert">
+					Username or email already exist! 
+				</div>
+
+				<form class="row g-3" role="form" method="post"
+					th:action="@{/register/new}"
+					th:object="${user}">
+					<input type="hidden" th:field="*{id}">
+					<div class="col-md-6">
+						<label for="username" class="form-label">User Name</label> <input
+							type="text" class="form-control" id="username" placeholder="user name"
+							name="username" th:field="*{username}">
+						<p th:if="${#fields.hasErrors('username')}" class="text-danger"
+							th:errors="*{username}"></p>
+					</div>
+					<div class="col-md-6">
+						<label for="password" class="form-label">Password</label> <input
+							type="password" class="form-control" id="password" name="password"
+							th:field="*{password}">
+						<p th:if="${#fields.hasErrors('password')}" class="text-danger"
+							th:errors="*{password}"></p>
+					</div>
+					<div class="col-12">
+						<label for="email" class="form-label">Email</label> <input
+							type="email" class="form-control" id="email"
+							placeholder="content" name="content" th:field="*{email}">
+						<p th:if="${#fields.hasErrors('email')}" class="text-danger"
+							th:errors="*{email}"></p>
+					</div>
+
+
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary">Register</button>
+					</div>
+					
+					<div class="col-12">
+						<a th:href="@{/login}" class="btn btn-secondary">Login Here</a>
+					</div>
+				</form>
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+		</section>
+
+
+	</main>
+
+</body>
+</html>
