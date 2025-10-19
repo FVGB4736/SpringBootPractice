@@ -31,6 +31,23 @@ public class UserEntity {
 	private String email;
 	private String password;
 	
+	
+	
+	
+	
+	
+	 
+	
+	//JPA 知道 user_id 對應到 UserEntity 的主鍵，因為：
+	//@JoinTable 是在 UserEntity 類中定義的，JPA 知道上下文是 UserEntity。
+	//referencedColumnName="id" 明確指向 UserEntity 的 id 欄位，而 id 被 @Id 標記為主鍵。
+	//即使不指定 referencedColumnName，JPA 也會默認使用主鍵
+	
+	//JPA 知道 role_id 對應到 Role 表的主鍵，因為：
+	//roles 屬性的類型是 List<Role>，JPA 知道關係的對方是 Role 實體。
+	//referencedColumnName="id" 明確指向 Role 的 id 欄位，而 id 被 @Id 標記為 Role 的主鍵。
+	//即使不指定 referencedColumnName，JPA 也會默認使用 Role 的主鍵。
+	
 	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "users_roles",

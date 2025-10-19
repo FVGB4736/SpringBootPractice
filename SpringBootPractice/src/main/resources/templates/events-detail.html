@@ -39,7 +39,10 @@
 							<p class="card-text">
 								End Time:<span th:text="${#temporals.format(event.endTime, 'yyyy/MM/dd HH:mm')}"></span>
 							</p>
-							<a class="btn btn-primary" th:href="@{/events/{eventId}/delete(eventId = ${event.id})}">Delete</a> 
+							<div th:if="${user.id} == ${event.club.createdBy.id}">
+								<a class="btn btn-primary" th:href="@{/events/{eventId}/delete(eventId = ${event.id})}">Delete</a> 
+							</div>
+							
 						</div>
 					</div>
 				</div>

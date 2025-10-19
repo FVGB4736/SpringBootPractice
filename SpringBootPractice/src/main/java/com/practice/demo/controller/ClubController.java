@@ -14,18 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.practice.demo.dto.ClubDto;
 import com.practice.demo.models.Club;
+import com.practice.demo.models.UserEntity;
+import com.practice.demo.security.SecurityUtil;
 import com.practice.demo.service.ClubService;
+import com.practice.demo.service.UserService;
 
+import ch.qos.logback.core.util.StringUtil;
 import jakarta.validation.Valid;
 
 @Controller
 public class ClubController {
 
 	private ClubService clubService;
+	
+	private UserService userService;
 
 	@Autowired
-	public ClubController(ClubService clubService) {
+	public ClubController(ClubService clubService, UserService userService) {
 		this.clubService = clubService;
+		this.userService = userService;
 	}
 
 	
@@ -35,6 +42,13 @@ public class ClubController {
 	 */
 	@GetMapping("/clubs")
 	public String listClubs(Model model) {
+		UserEntity user = new UserEntity();
+		String username = SecurityUtil.getSessionUser();
+		if(!StringUtil.isNullOrEmpty(username)) {
+			user = userService.findByUsername(username);
+		}
+		model.addAttribute("user", user);
+		
 		List<ClubDto> clubs = clubService.findAllClubs();
 
 		model.addAttribute("clubs", clubs);
@@ -44,6 +58,14 @@ public class ClubController {
 	
 	@GetMapping("/clubs/{clubId}")
 	public String clubDetail(@PathVariable("clubId") long clubId, Model model) {
+		
+		UserEntity user = new UserEntity();
+		String username = SecurityUtil.getSessionUser();
+		if(!StringUtil.isNullOrEmpty(username)) {
+			user = userService.findByUsername(username);
+		}
+		model.addAttribute("user", user);
+		
 		ClubDto clubDto = clubService.findClubById(clubId);
 
 		model.addAttribute("club", clubDto);

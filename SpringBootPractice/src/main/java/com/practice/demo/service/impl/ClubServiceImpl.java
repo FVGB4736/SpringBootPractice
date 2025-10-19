@@ -23,8 +23,9 @@ public class ClubServiceImpl implements ClubService{
 	private UserRepository userRepository;
 	
 	@Autowired
-	public ClubServiceImpl(ClubRepository clubRepository) {
+	public ClubServiceImpl(ClubRepository clubRepository, UserRepository userRepository) {
 		this.clubRepository = clubRepository;
+		this.userRepository = userRepository;
 	}
 	
 	@Override

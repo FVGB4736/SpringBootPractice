@@ -17,6 +17,36 @@ import org.springframework.security.web.SecurityFilterChain;
 //Spring Security 會把它讀取並應用到整個應用的過濾鏈中
 
 
+//[User submits login form]
+//        |
+//        v
+//[Spring Security 攔截 /login POST]
+//        |
+//        v
+//[呼叫 CustomUserDetailsService]
+//        |
+//        v
+//[比對密碼 with PasswordEncoder]
+//        |
+//        v
+//[驗證成功 → 建立 Session + 將Authentication存入SecurityContext中]
+//        |
+//        v
+//[瀏覽器收到 Set-Cookie: JSESSIONID]
+//        |
+//        v
+//[後續每個請求自動帶上 Cookie]
+//        |
+//        v
+//[Spring Security 根據 Cookie 找回登入資訊]
+//        |
+//        v
+//[放入 SecurityContextHolder → 你就能取得目前登入者]
+
+
+
+
+
 @Configuration			//表示這是一個設定類別
 @EnableWebSecurity		//啟用 Spring Security 的功能
 public class SecurityConfig {

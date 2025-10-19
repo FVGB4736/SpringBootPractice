@@ -13,6 +13,16 @@ import org.springframework.stereotype.Service;
 import com.practice.demo.models.UserEntity;
 import com.practice.demo.repository.UserRepository;
 
+
+
+//CustomUserDetailsService implements UserDetailsService		->	告訴 Spring Security：我要自己實作用戶查詢邏輯
+//loadUserByUsername(...)					 					->	被 Spring Security呼叫來找出登入帳號的詳細資訊
+//User(...)														->	把你資料庫裡的資訊包裝成 Spring Security 能認得的格式
+//SimpleGrantedAuthority 										->	Spring 用來判斷權限的標準物件，例如 ROLE_ADMIN、ROLE_USER
+
+
+
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 	

@@ -11,26 +11,39 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.practice.demo.dto.ClubDto;
 import com.practice.demo.dto.EventDto;
 import com.practice.demo.models.Event;
+import com.practice.demo.models.UserEntity;
+import com.practice.demo.security.SecurityUtil;
 import com.practice.demo.service.EventService;
+import com.practice.demo.service.UserService;
 
+import ch.qos.logback.core.util.StringUtil;
 import jakarta.validation.Valid;
 
 @Controller
 public class EventController {
 
 	private EventService eventService;
+	private UserService userService;
 
 	@Autowired
-	public EventController(EventService eventService) {
+	public EventController(EventService eventService, UserService userService) {
 
 		this.eventService = eventService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/events")
 	public String listEvents(Model model) {
+		
+		UserEntity user = new UserEntity();
+		String username = SecurityUtil.getSessionUser();
+		if(!StringUtil.isNullOrEmpty(username)) {
+			user = userService.findByUsername(username);
+		}
+		model.addAttribute("user", user);
+		
 		List<EventDto> eventDtos = eventService.findAllEvents();
 		model.addAttribute("events", eventDtos);
 		return "events-list";
@@ -38,6 +51,14 @@ public class EventController {
 
 	@GetMapping("/events/{eventId}")
 	public String veiwEvent(@PathVariable("eventId") Long eventId, Model model) {
+		
+		UserEntity user = new UserEntity();
+		String username = SecurityUtil.getSessionUser();
+		if(!StringUtil.isNullOrEmpty(username)) {
+			user = userService.findByUsername(username);
+		}
+		model.addAttribute("user", user);
+		
 		EventDto eventDto = eventService.findEventById(eventId);
 		model.addAttribute("eventId", eventId);
 		model.addAttribute("event", eventDto);
